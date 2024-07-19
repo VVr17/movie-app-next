@@ -1,3 +1,4 @@
+import { QueryParams, SearchParams } from '@/types/queryParams';
 import {
   CATEGORIES,
   FIRST_PAGE,
@@ -8,10 +9,11 @@ import {
   TRENDING_TV_URL,
   TV_DISCOVER_URL,
 } from '@/utils/constants';
-import { ReadonlyURLSearchParams } from 'next/navigation';
 
-interface SearchParams {
-  [key: string]: any;
+function isQueryEmpty(obj: QueryParams | undefined): boolean {
+  if (!obj) return true;
+
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
 /**
@@ -21,23 +23,20 @@ interface SearchParams {
  */
 export const getUrl = (
   category: string,
-  queryParams: ReadonlyURLSearchParams,
+  queryParams?: { [key: string]: string | string[] | undefined } | undefined,
 ) => {
-  const genres = queryParams.getAll('genres');
-  const search = queryParams.get('search');
-
   switch (category) {
     case CATEGORIES.movies:
-      return search
-        ? SEARCH_MOVIE_BY_TITLE
-        : !genres || genres.length === 0
-          ? TRENDING_MOVIE_URL
+      return isQueryEmpty(queryParams)
+        ? TRENDING_MOVIE_URL
+        : queryParams?.search
+          ? SEARCH_MOVIE_BY_TITLE
           : MOVIE_DISCOVER_URL;
     case CATEGORIES.tv:
-      return search
-        ? SEARCH_TV_BY_TITLE
-        : !genres || genres.length === 0
-          ? TRENDING_TV_URL
+      return isQueryEmpty(queryParams)
+        ? TRENDING_TV_URL
+        : queryParams?.search
+          ? SEARCH_TV_BY_TITLE
           : TV_DISCOVER_URL;
     default:
       return TRENDING_MOVIE_URL;
@@ -51,38 +50,35 @@ export const getUrl = (
  */
 export const getSearchParams = (
   category: string,
-  queryParams: ReadonlyURLSearchParams,
+  queryParams: QueryParams | undefined,
 ) => {
-  const genres = queryParams.getAll('genres');
-  const search = queryParams.get('search');
-  const sort = queryParams.get('sort');
-  const minYear = queryParams.get('minYear');
-  const maxYear = queryParams.get('maxYear');
-  const page = queryParams.get('page');
-
-  const params: SearchParams = { page: page ? page : FIRST_PAGE };
-  if (sort) {
-    params.sort_by = sort;
+  const params: SearchParams = {
+    page: queryParams?.page ? queryParams.page : FIRST_PAGE,
+  };
+  if (queryParams?.sort) {
+    params.sort_by = queryParams.sort;
   }
-  if (search) {
-    params.query = search;
+  if (queryParams?.search) {
+    params.query = queryParams.search;
   }
-  if (genres) {
-    params.with_genres = Array.isArray(genres) ? genres.join('|') : genres;
+  if (queryParams?.genres) {
+    params.with_genres = Array.isArray(queryParams.genres)
+      ? queryParams.genres.join('|')
+      : queryParams.genres;
   }
-  if (minYear) {
+  if (queryParams?.minYear) {
     const key =
       category === CATEGORIES.movies
         ? 'primary_release_date.gte'
         : 'first_air_date.gte';
-    params[key] = `${+minYear}-01-01`;
+    params[key] = `${+queryParams.minYear}-01-01`;
   }
-  if (maxYear) {
+  if (queryParams?.maxYear) {
     const key =
       category === CATEGORIES.movies
         ? 'primary_release_date.lte'
         : 'first_air_date.lte';
-    params[key] = `${+maxYear}-12-31`;
+    params[key] = `${+queryParams.maxYear}-12-31`;
   }
 
   return params;

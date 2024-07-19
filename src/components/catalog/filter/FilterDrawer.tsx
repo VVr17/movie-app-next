@@ -8,14 +8,20 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { useQueryParams } from '@/hooks/useQueryParams';
 import { useState } from 'react';
 
 const FilterDrawer = () => {
+  const { retrieveSearchParams } = useQueryParams();
   const [isOpen, setIsOpen] = useState(false);
+  const isDisabled = !!retrieveSearchParams().search; // Disable sort if there is  a search query
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger className="disabled:text-gray flex items-center justify-center gap-4 text-base transition duration-300 hover:text-primary focus:text-primary">
+      <SheetTrigger
+        disabled={isDisabled}
+        className="flex items-center justify-center gap-4 text-base transition duration-300 hover:text-primary focus:text-primary disabled:cursor-not-allowed disabled:text-gray-400"
+      >
         Filter
       </SheetTrigger>
       <SheetContent>

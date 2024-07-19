@@ -1,6 +1,4 @@
-'use client';
-import search from '@/assets/icons/search.svg';
-import Image from 'next/image';
+import { SearchIcon } from '@/assets/icons';
 import { Input } from '../ui/input';
 
 const SearchForm = () => {
@@ -11,14 +9,9 @@ const SearchForm = () => {
         <button
           title="submit search"
           type="submit"
-          className="desk:w-14 group flex h-9 w-10 items-center justify-center rounded-lg bg-primary"
+          className="group flex h-9 w-10 items-center justify-center rounded-lg bg-primary lg:w-14"
         >
-          <Image
-            priority
-            src={search}
-            alt="search"
-            className="h-6 w-6 object-contain"
-          />
+          <SearchIcon stroke="white" />
         </button>
       </div>
     </form>

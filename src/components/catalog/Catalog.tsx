@@ -1,35 +1,18 @@
-/* eslint-disable no-unused-vars */
-'use client';
-import { fetchData } from '@/services/fetchData';
-import { Movie } from '@/types/data';
-import { getSearchParams, getUrl } from '@/utils/helpers/getUrl';
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { ApiResponse } from '@/types/data';
+import { Genres } from '@/types/genre';
+import { MAX_TOTAL_PAGES } from '@/utils/constants';
+import React from 'react';
 import CatalogPagination from './CatalogPagination';
-import FilterBar from './FilterBar';
+import FilterBar from './filter/FilterBar';
+import List from './list/List';
 import SearchForm from './SearchForm';
 
 interface CatalogProps {
   category: 'movies' | 'tv';
+  data: ApiResponse;
+  genres: Genres | undefined;
 }
-const Catalog: React.FC<CatalogProps> = ({ category }) => {
-  const queryParams = useSearchParams();
-  const [data, setData] = useState<Movie[] | null>(null);
-
-  useEffect(() => {
-    const getMovies = async () => {
-      const url = getUrl(category, queryParams);
-      const searchParams = getSearchParams(category, queryParams);
-
-      const response = await fetchData({ url, params: searchParams });
-
-      if (response) {
-        setData(response.results);
-      }
-    };
-    getMovies();
-  }, [category, queryParams]);
-
+const Catalog: React.FC<CatalogProps> = ({ category, data, genres }) => {
   return (
     <div className="section">
       <div className="container">
@@ -37,21 +20,25 @@ const Catalog: React.FC<CatalogProps> = ({ category }) => {
         <SearchForm />
         <FilterBar />
 
-        <ul className="flex flex-wrap gap-2">
-          {data?.map((movie, index, array) => (
-            <li key={index} className="border border-primary p-3">
-              <p>{movie?.original_title || movie?.original_name}</p>
-            </li>
-          ))}
-        </ul>
+        {data?.results.length > 0 && (
+          <List data={data.results} category={category} genres={genres} />
+        )}
 
-        {/* //TODO: add, when there are no movies found        
-        <h2 className="title-secondary text-xl">
-          There is no movies / TV shows found on your request
-        </h2>
-         */}
+        {data?.results.length === 0 && (
+          <h2 className="title-secondary text-xl">
+            There is no movies / TV shows found on your request
+          </h2>
+        )}
 
-        <CatalogPagination />
+        {data.total_pages > 1 && (
+          <CatalogPagination
+            totalPages={
+              data.total_pages < MAX_TOTAL_PAGES
+                ? data.total_pages
+                : MAX_TOTAL_PAGES
+            }
+          />
+        )}
       </div>
     </div>
   );

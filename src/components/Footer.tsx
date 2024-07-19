@@ -1,4 +1,3 @@
-import tmdbLogo from '@/assets/icons/tmdb.svg';
 import Image from 'next/image';
 
 const Footer = () => {
@@ -15,7 +14,9 @@ const Footer = () => {
         >
           <Image
             priority
-            src={tmdbLogo}
+            width={300}
+            height={22}
+            src="/images/tmdb.svg"
             alt="tmdb"
             className="h-full w-full object-contain"
           />
