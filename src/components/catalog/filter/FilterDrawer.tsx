@@ -3,13 +3,13 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { useQueryParams } from '@/hooks/useQueryParams';
 import { useState } from 'react';
+import FilterForm from './FilterForm';
 
 const FilterDrawer = () => {
   const { retrieveSearchParams } = useQueryParams();
@@ -18,20 +18,22 @@ const FilterDrawer = () => {
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      {/* Filter button to open filter drawer */}
       <SheetTrigger
         disabled={isDisabled}
         className="flex items-center justify-center gap-4 text-base transition duration-300 hover:text-primary focus:text-primary disabled:cursor-not-allowed disabled:text-gray-400"
       >
         Filter
       </SheetTrigger>
-      <SheetContent>
+
+      {/* Filter Drawer */}
+      <SheetContent className="max-w-full overflow-auto">
         <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </SheetDescription>
+          <SheetTitle className="mb-4 text-2xl font-medium text-primary md:text-3xl">
+            Filter
+          </SheetTitle>
         </SheetHeader>
+        <FilterForm closeFilter={() => setIsOpen(false)} />
       </SheetContent>
     </Sheet>
   );

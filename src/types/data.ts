@@ -16,12 +16,14 @@ export interface Movie {
   first_air_date?: string;
   original_name?: string;
   origin_country?: string[];
+  name?: string;
 
   // Movie
   original_title?: string;
   media_type?: string;
   title?: string;
   video?: boolean;
+  tagline?: string;
 }
 
 export type ApiResponse = {

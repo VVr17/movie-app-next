@@ -28,7 +28,10 @@ const Card: React.FC<CardProps> = ({ movie, category, genres }) => {
     <>
       <div className="flex flex-grow flex-row bg-popover md:flex-col">
         <div className="flex flex-grow flex-col p-2">
-          <Link href={'/'} className="mb-2 h-auto w-full cursor-pointer">
+          <Link
+            href={`/${category}/${movie.id}`}
+            className="mb-2 h-auto w-full cursor-pointer"
+          >
             <Image
               src={imgSrc ? imgSrc : fallback}
               alt={title}
@@ -39,7 +42,7 @@ const Card: React.FC<CardProps> = ({ movie, category, genres }) => {
           </Link>
 
           <Link
-            href={'/'}
+            href={`/${category}/${movie.id}`}
             className="mb-2 flex max-w-[141px] flex-col text-xs font-medium text-primary transition duration-300 hover:text-accent-foreground focus:text-accent-foreground sm:max-w-[171px] md:max-w-[189px] md:text-sm lg:max-w-[240px]"
           >
             <span className="first-letter:capitalize"> {title}</span>

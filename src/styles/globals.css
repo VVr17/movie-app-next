@@ -54,7 +54,7 @@
     --accent: 155, 89%, 36%; /* HSL значення для #0aae69 // default: 217.2 32.6% 17.5%; */
     --accent-foreground: 60, 100%, 91%; /* HSL значення для #FEFFC9 */
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0, 85%, 53%; /*HSL значення для #ed2121  // default: 0 62.8% 30.6% */
     --destructive-foreground: 210 40% 98%;
 
     --border: 155, 89%, 36%; /* default: 217.2 32.6% 17.5% */
