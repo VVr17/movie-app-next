@@ -1,12 +1,13 @@
-import { Movie } from '@/types/data';
+import { Category } from '@/types/auxiliary';
+import { Cast, Movie } from '@/types/data';
 import { DESCRIPTION_TYPES, FIRST_SEASON } from '@/utils/constants';
 import { getDescriptionFields } from '@/utils/helpers/getDescriptionFields';
 import Link from 'next/link';
 import React from 'react';
 
 interface ShortDescriptionProps {
-  category: 'movies' | 'tv';
-  data: Movie;
+  category: Category;
+  data: Movie | Cast;
 }
 
 const ShortDescription: React.FC<ShortDescriptionProps> = ({

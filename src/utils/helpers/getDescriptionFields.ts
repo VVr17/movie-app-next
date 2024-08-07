@@ -1,3 +1,4 @@
+import { Category, Description } from '@/types/auxiliary';
 import { Genre } from '@/types/genre';
 import { CATEGORIES, DESCRIPTION_TYPES } from '../constants';
 
@@ -17,8 +18,8 @@ export interface DescriptionField {
  * @returns {Object} - An object containing computed descriptionFields.
  */
 export const getDescriptionFields = (
-  type: string, //TODO: fix types -  'short' | 'detailed',
-  category: 'movies' | 'tv',
+  type: Description,
+  category: Category,
   data: any,
 ) => {
   // Movie-specific description fields
@@ -126,7 +127,7 @@ export const getDescriptionFields = (
   }
 
   // People specific description fields
-  if (category === CATEGORIES.people) {
+  if (category === CATEGORIES.cast) {
     const fields: DescriptionField[] = [
       { title: 'Date of birth: ', value: data.birthday },
       { title: 'Place of birth: ', value: data.place_of_birth },

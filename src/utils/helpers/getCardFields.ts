@@ -1,3 +1,4 @@
+import { Category } from '@/types/auxiliary';
 import { Genre } from '@/types/genre';
 import { CATEGORIES, IMAGE_BASE_URL } from '../constants';
 
@@ -9,7 +10,7 @@ import { CATEGORIES, IMAGE_BASE_URL } from '../constants';
  * @returns {Object} - An object containing computed card fields.
  */
 export const getCardFields = (
-  category: 'movies' | 'tv',
+  category: Category,
   data: any,
   genres:
     | {
@@ -18,13 +19,6 @@ export const getCardFields = (
       }
     | undefined,
 ) => {
-  const name =
-    category === CATEGORIES.movies
-      ? 'MovieDetails'
-      : category === CATEGORIES.tv
-        ? 'TvDetails'
-        : 'PersonDetails';
-
   const imgSrc = data?.poster_path
     ? `${IMAGE_BASE_URL}${data.poster_path}`
     : data?.profile_path
@@ -33,7 +27,7 @@ export const getCardFields = (
 
   const title = data?.original_title || data?.original_name || data?.name;
   const subTitle =
-    category === CATEGORIES.people
+    category === CATEGORIES.cast
       ? `Popularity: ${data?.popularity}`
       : `Status: ${data?.status}`;
 
@@ -56,17 +50,17 @@ export const getCardFields = (
           .join(', ');
 
   const detailedDescriptionTitle =
-    category === CATEGORIES.people ? 'Biography' : 'Overview';
+    category === CATEGORIES.cast ? 'Biography' : 'Overview';
 
   const detailedDescriptionSubTitle =
-    category === CATEGORIES.people
+    category === CATEGORIES.cast
       ? `Known for department: ${data?.known_for_department}`
       : `Genres: ${data?.genres?.map(({ name }: { name: string }) => name).join(', ')}`;
 
   const detailedDescription = data?.overview || data?.biography;
 
   return {
-    name,
+    category,
     imgSrc,
     title,
     subTitle,

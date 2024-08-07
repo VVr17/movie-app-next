@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation';
 
-const CastPage = () => {
-  // Cast page without provided id
+const PeoplePage = () => {
   notFound();
 };
 
-export default CastPage;
+export default PeoplePage;

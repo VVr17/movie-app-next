@@ -1,14 +1,15 @@
+import { Category } from '@/types/auxiliary';
 import { ApiResponse } from '@/types/data';
 import { Genres } from '@/types/genre';
 import { MAX_TOTAL_PAGES } from '@/utils/constants';
 import React from 'react';
+import List from '../list/List';
 import CatalogPagination from './CatalogPagination';
 import FilterBar from './filter/FilterBar';
-import List from './list/List';
 import SearchForm from './SearchForm';
 
 interface CatalogProps {
-  category: 'movies' | 'tv';
+  category: Category;
   data: ApiResponse;
   genres: Genres | undefined;
 }

@@ -1,12 +1,13 @@
-import { Movie } from '@/types/data';
+import { Category } from '@/types/auxiliary';
+import { Cast, Movie } from '@/types/data';
 import { DESCRIPTION_TYPES } from '@/utils/constants';
 import { getDescriptionFields } from '@/utils/helpers/getDescriptionFields';
 import Link from 'next/link';
 import React from 'react';
 
 interface FullCharacteristicsProps {
-  category: 'movies' | 'tv';
-  data: Movie;
+  category: Category;
+  data: Movie | Cast;
 }
 
 const FullCharacteristics: React.FC<FullCharacteristicsProps> = ({

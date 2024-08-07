@@ -41,3 +41,20 @@ export const fetchDetails = async ({ url }: { url: string }) => {
     console.error('error', message);
   }
 };
+
+/**
+ * Fetches data from the specified URL using Axios.
+ *
+ * @param {string} url - The URL endpoint for the API request.
+ */
+export const fetchCast = async ({ url }: { url: string }) => {
+  try {
+    const response = await api.get(url);
+    return response.data as any;
+  } catch (err: any) {
+    const message = err?.response?.data
+      ? err.response.data.status_message
+      : err.message;
+    console.error('error', message);
+  }
+};

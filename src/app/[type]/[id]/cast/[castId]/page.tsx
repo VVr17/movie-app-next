@@ -1,31 +1,43 @@
 import BreadcrumbBar from '@/components/BreadcrumbBar';
-import { notFound } from 'next/navigation';
+import DetailedCard from '@/components/details/DetailedCard';
+import { fetchDetails } from '@/services/fetchData';
+import { fetchGenres } from '@/services/fetchGenres';
+import { Cast } from '@/types/data';
+import { MOVIE_URL, PERSON_URL, TV_URL } from '@/utils/constants';
+import { getCardFields } from '@/utils/helpers/getCardFields';
 
-const CastDetailsPage = ({
+const CastDetailsPage = async ({
   params,
 }: {
   params: { type: string; id: string; castId: string };
 }) => {
-  const isCorrectType = params.type === 'movies' || params.type === 'tv';
+  const movieUrl = `${params.type === 'movies' ? MOVIE_URL : TV_URL}${params.id}`;
+  const castUrl = `${PERSON_URL}${params.castId}`;
+  const movieData = await fetchDetails({ url: movieUrl });
+  const castData = await fetchDetails({ url: castUrl });
+  const genres = await fetchGenres();
+  const { title } = getCardFields('cast', castData, genres);
 
-  if (!isCorrectType) {
-    notFound();
-  }
+  const routes = [
+    { path: '/', label: 'Home' },
+    {
+      path: `/${params.type}`,
+      label: `${params.type}`,
+    },
+    {
+      path: `/${params.type}/${params.id}`,
+      label: `${movieData?.original_title || movieData?.original_name || movieData?.name}`,
+    },
+    {
+      path: `/${params.type}/${params.id}/${params.castId}`,
+      label: `${title}`,
+    },
+  ];
 
   return (
     <>
-      <BreadcrumbBar
-        routes={[
-          { path: '/', label: 'Home' },
-          { path: `/${params.type}`, label: `${params.type}` }, // should be dynamic depending on previous page
-          {
-            path: `/${params.type}/${params.id}`,
-            label: `${params.type} name `,
-          }, // should be dynamic depending on previous page
-          { path: `/cast/${params.castId}`, label: 'Person cast name' },
-        ]}
-      />
-      <h1> cast details page </h1>
+      <BreadcrumbBar routes={routes} />
+      <DetailedCard category="cast" genres={genres} data={castData as Cast} />
     </>
   );
 };

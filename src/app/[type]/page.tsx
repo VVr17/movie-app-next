@@ -36,7 +36,13 @@ const CatalogPage = async ({
         ]}
       />
       <Catalog
-        category={params.type === 'movies' ? 'movies' : 'tv'}
+        category={
+          params.type === 'movies'
+            ? 'movies'
+            : params.type === 'tv'
+              ? 'tv'
+              : 'cast'
+        }
         data={response}
         genres={genres}
       />

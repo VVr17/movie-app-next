@@ -1,4 +1,5 @@
-import { Movie } from '@/types/data';
+import { Category } from '@/types/auxiliary';
+import { Cast, Movie } from '@/types/data';
 import { Genres } from '@/types/genre';
 import { getCardFields } from '@/utils/helpers/getCardFields';
 import React from 'react';
@@ -11,12 +12,12 @@ import MainDescription from './components/MainDescription';
 import ShortDescription from './components/ShortDescription';
 
 interface CardProps {
-  movie: Movie;
-  category: 'movies' | 'tv';
+  data: Movie | Cast;
+  category: Category;
   genres: Genres | undefined;
 }
 
-const DetailedCard: React.FC<CardProps> = ({ movie, category, genres }) => {
+const DetailedCard: React.FC<CardProps> = ({ data, category, genres }) => {
   const {
     title,
     imgSrc,
@@ -24,7 +25,7 @@ const DetailedCard: React.FC<CardProps> = ({ movie, category, genres }) => {
     detailedDescription,
     detailedDescriptionTitle,
     detailedDescriptionSubTitle,
-  } = getCardFields(category, movie, genres);
+  } = getCardFields(category, data, genres);
 
   return (
     <div className="section">
@@ -42,9 +43,9 @@ const DetailedCard: React.FC<CardProps> = ({ movie, category, genres }) => {
               className="hidden md:block"
             />
 
-            {movie?.tagline && <CardTagline tagline={movie?.tagline} />}
+            {data?.tagline && <CardTagline tagline={data?.tagline} />}
 
-            <ShortDescription category={category} data={movie} />
+            <ShortDescription category={category} data={data} />
           </div>
         </div>
 
@@ -56,7 +57,7 @@ const DetailedCard: React.FC<CardProps> = ({ movie, category, genres }) => {
         />
 
         <InfoTitle title="Characteristics" />
-        <FullCharacteristics data={movie} category={category} />
+        <FullCharacteristics data={data} category={category} />
       </div>
     </div>
   );

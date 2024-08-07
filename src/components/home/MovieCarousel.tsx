@@ -1,5 +1,5 @@
 'use client';
-import Card from '@/components/catalog/list/Card';
+import Card from '@/components/list/Card';
 import {
   Carousel,
   CarouselContent,
@@ -35,7 +35,7 @@ const MovieCarousel: React.FC<MovieCarouselProps> = ({ movies, genres }) => {
                 key={movie.id}
                 className="basis-1/2 pl-1 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
               >
-                <Card movie={movie} category="movies" genres={genres} />
+                <Card data={movie} category="movies" genres={genres} />
               </CarouselItem>
             ))}
           </CarouselContent>
