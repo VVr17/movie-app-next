@@ -29,7 +29,7 @@ const CastDetailsPage = async ({
       label: `${movieData?.original_title || movieData?.original_name || movieData?.name}`,
     },
     {
-      path: `/${params.type}/${params.id}/${params.castId}`,
+      path: `/${params.type}/${params.id}/cast/${params.castId}`,
       label: `${title}`,
     },
   ];

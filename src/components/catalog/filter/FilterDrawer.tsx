@@ -14,7 +14,7 @@ import FilterForm from './FilterForm';
 const FilterDrawer = () => {
   const { retrieveSearchParams } = useQueryParams();
   const [isOpen, setIsOpen] = useState(false);
-  const isDisabled = !!retrieveSearchParams().search; // Disable sort if there is  a search query
+  const isDisabled = !!retrieveSearchParams().search; // Disable sort if there is a search query
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>

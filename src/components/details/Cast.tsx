@@ -18,7 +18,7 @@ const Cast: React.FC<CastProps> = ({ cast, crew, parentUrl }) => {
 
         <InfoTitle title="Crew" className="mt-4 md:mt-6 lg:mt-8" />
         {crew.length > 0 && (
-          <List data={cast} category="cast" parentUrl={parentUrl} />
+          <List data={crew} category="cast" parentUrl={parentUrl} />
         )}
       </div>
     </div>
