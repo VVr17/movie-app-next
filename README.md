@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 Next Movie App
 
-## Getting Started
+Next Movie App is a web application that allows users to search for movies using TheMovieDB API. Built with Next.js, this app provides a modern and responsive user interface for browsing movies by genre, year, and more.
 
-First, run the development server:
+[Live Demo](https://movie-app-next-eight.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Search for movies by genre and year with pagination.
+- Built with **Next.js** for optimized performance.
+- Responsive UI styled using **Tailwind CSS**.
+- Form handling using **React Hook Form** with validation powered by **Yup** and **Zod**.
+- Integrated **Radix UI** components for dialogs, checkboxes, and selects.
+  
+API Documentation:
+[TMDB API Documentation](https://developer.themoviedb.org/docs)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Technologies
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Next.js**
+- **React**
+- **Tailwind CSS**
+- **Axios** for API requests
+- **React Hook Form** and **Yup**/**Zod** for form validation
+- **Radix UI** for accessible components
+- **ESLint** and **Prettier** for code formatting and linting
+- **Husky** and **lint-staged** for pre-commit checks
 
-## Learn More
+## 🚀 Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+### Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Clone the repository and install the dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    git clone https://github.com/VVr17/movie-app-next
+    cd next-movie-app
+    npm install
 
-## Deploy on Vercel
+Usage
+To start the development server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To build for production:
+
+    npm run build
+    npm start
